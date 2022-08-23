@@ -11,8 +11,10 @@ class App extends React.Component {
     cardAttr3: '',
     cardImage: '',
     cardRare: 'normal',
+    hasTrunfo: false,
     cardTrunfo: false,
     isSaveButtonDisabled: true,
+    gundam: [],
   };
 
   batata = (frita) => {
@@ -42,9 +44,30 @@ class App extends React.Component {
     });
   };
 
+  onSaveButtonClick = (unicorn) => {
+    const { cardTrunfo } = this.state;
+    if (cardTrunfo) {
+      this.setState({ hasTrunfo: true });
+    }
+    this.setState((banshee) => ({
+      gundam: [banshee.gundam, unicorn],
+    }), () => {
+      this.setState({
+        cardName: '',
+        cardDescription: '',
+        cardImage: '',
+        cardAttr1: '0',
+        cardAttr2: '0',
+        cardAttr3: '0',
+        cardRare: 'normal',
+      });
+    });
+  };
+
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
-      cardAttr3, cardImage, cardRare, cardTrunfo, isSaveButtonDisabled } = this.state;
+      cardAttr3, cardImage, cardRare, hasTrunfo,
+      cardTrunfo, isSaveButtonDisabled } = this.state;
     return (
       <div>
         <h1>Tryunfo Gundam Universe</h1>
@@ -57,8 +80,10 @@ class App extends React.Component {
           cardAttr3={ cardAttr3 }
           cardImage={ cardImage }
           cardRare={ cardRare }
+          hasTrunfo={ hasTrunfo }
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card
           cardName={ cardName }

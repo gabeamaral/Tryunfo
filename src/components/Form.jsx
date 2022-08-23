@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class Form extends React.Component {
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
-      cardAttr3, cardImage, cardRare, cardTrunfo, // hasTrunfo,
+      cardAttr3, cardImage, cardRare, cardTrunfo, hasTrunfo,
       isSaveButtonDisabled, onInputChange, onSaveButtonClick } = this.props;
     return (
       <main>
@@ -94,21 +94,36 @@ class Form extends React.Component {
             </select>
           </label>
           <label htmlFor="check">
-            <input
-              type="checkbox"
-              name="cardTrunfo"
-              id="check"
-              data-testid="trunfo-input"
-              checked={ cardTrunfo }
-              onChange={ onInputChange }
-            />
+            {
+              hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p> : (
+                <input
+                  type="checkbox"
+                  name="cardTrunfo"
+                  id="check"
+                  data-testid="trunfo-input"
+                  checked={ cardTrunfo }
+                  onChange={ onInputChange }
+                />
+              )
+            }
             Super Trybe Trunfo
           </label>
           <button
             type="submit"
             id="botao"
             data-testid="save-button"
-            onClick={ onSaveButtonClick }
+            onClick={ () => {
+              onSaveButtonClick({
+                cardName,
+                cardDescription,
+                cardAttr1,
+                cardAttr2,
+                cardAttr3,
+                cardImage,
+                cardRare,
+                cardTrunfo,
+              });
+            } }
             disabled={ isSaveButtonDisabled }
           >
             Salvar
@@ -128,7 +143,7 @@ Form.propTypes = {
   cardImage: PropTypes.string,
   cardRare: PropTypes.string,
   cardTrunfo: PropTypes.bool,
-  // hasTrunfo: PropTypes.bool,
+  hasTrunfo: PropTypes.bool,
   isSaveButtonDisabled: PropTypes.bool,
   onInputChange: PropTypes.func,
   onSaveButtonClick: PropTypes.func,
