@@ -50,7 +50,7 @@ class App extends React.Component {
       this.setState({ hasTrunfo: true });
     }
     this.setState((banshee) => ({
-      gundam: [banshee.gundam, unicorn],
+      gundam: [...banshee.gundam, unicorn],
     }), () => {
       this.setState({
         cardName: '',
@@ -67,7 +67,7 @@ class App extends React.Component {
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, hasTrunfo,
-      cardTrunfo, isSaveButtonDisabled } = this.state;
+      cardTrunfo, isSaveButtonDisabled, gundam } = this.state;
     return (
       <div>
         <h1>Tryunfo Gundam Universe</h1>
@@ -95,6 +95,20 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+
+        {
+          gundam.map((rx01) => (<Card
+            key={ rx01.cardName }
+            cardName={ rx01.cardName }
+            cardDescription={ rx01.cardDescription }
+            cardAttr1={ rx01.cardAttr1 }
+            cardAttr2={ rx01.cardAttr2 }
+            cardAttr3={ rx01.cardAttr3 }
+            cardImage={ rx01.cardImage }
+            cardRare={ rx01.cardRare }
+            cardTrunfo={ rx01.cardTrunfo }
+          />))
+        }
       </div>
     );
   }
